@@ -1,22 +1,50 @@
+---
+import "../styles/global.css";
+import Header from "../components/Navbar.astro";
+import GithubIcon from "../components/Icons/GithubIcon.astro";
+import LinkedinIcon from "../components/Icons/LinkedinIcon.astro";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<!-- Meta links for the Red Hat Display font -->
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Jacob Simeone</title>
 	</head>
-	<body>
-		<slot />
+
+	<body style="margin-top: 1em;">
+		<div class="container">
+			<div>
+				<h1 class="main-header">JACOBSIMEONE.NET</h1>
+			</div>
+			<Header />
+			<hr style="margin-bottom: 2em;" class="separator" />
+			<slot />
+		</div>
+		<footer class="footer">
+			<div class="footer-container">
+				<h1>Connections:</h1>
+				<div class="row">
+					<div class="footer-row">
+						<GithubIcon size="32" />
+						<a class="connection-link" target="_blank" href="https://github.com/litemage">GitHub</a>
+					</div>
+					<div class="footer-row">
+						<LinkedinIcon size="32" />
+						<a class="connection-link" target="_blank" href="https://github.com">LinkedIn</a>
+					</div>
+				</div>
+				<p class="minor-text">This site was built using <a target="_blank" href="https://astro.build/">Astro</a></p>
+			</div>
+		</footer>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

@@ -1,0 +1,32 @@
+---
+import "../styles/global.css"
+
+const {link, title, description, author, published, coverImage} = Astro.props;
+---
+<div>
+    <div class="content blog-container">
+        <div>
+            <div class="image-container">
+                <img src={coverImage} alt="">
+            </div>
+            <div style="padding: 1em;">
+                <h2><a href={link}>{title}</a></h2>
+                <span>{description}<strong><br>By: {author}, Published: {published}</strong></span>
+            </div>
+        </div>
+    </div>
+    <style>
+        a {
+            letter-spacing: 3px;
+            font-size: 1.5em;
+        }
+        h2 {
+            margin-top: 0px;
+            margin-bottom: 5px;
+        }
+        span {
+            font-size: larger;
+            opacity: 60%;
+        }
+    </style>
+</div>

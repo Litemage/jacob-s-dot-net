@@ -1,11 +1,98 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// Components
+import Layout from "../layouts/Layout.astro";
+import Banner from "../components/Banner.astro";
+import BigLink from "../components/BigLink.astro";
+import Skill from "../components/Skill.astro";
+// Lib
+import { getCollection } from "astro:content";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts: any[] = await getCollection("blog");
+var interesting: any[] = [];
+posts.forEach((p) => {
+	if (p.data.tags == "interesting") {
+		interesting.push(p);
+	}
+});
 ---
 
 <Layout>
-	<Welcome />
+	<div>
+		<img
+			class="cover-img"
+			src="/JacobCoverPhoto.png"
+			alt="A photo of Jacob Simeone"
+		/>
+		<p style="margin: auto; text-align: center;" class="minor-text">
+			(A photo of me)
+		</p>
+	</div>
+	<Banner title="Welcome!!" />
+	<div class="content">
+		<p>
+			Welcome, wary web traveler, to my corner of the internet. I
+			appreciate your company and I hope you learn something while you're
+			here.
+		</p>
+		<p>
+			The aim of this webpage is to showcase a little about me, my
+			projects, my hobbies, and to share the knowledge I have obtained
+			throughout these adventures. Here, ("<a href="/">Home</a>") you can
+			find general information about me and this website, as well as some
+			links to what I personally think are the most interesting
+			projects/articles/topics on here. "<a href="/blog">Blog</a>" will
+			contain instructional articles, project articles, and other
+			interesting (to me) topics. Finally, "<a href="/tips-and-tricks"
+				>Tips and Tricks</a
+			>" lists some software, hardware, and vendors that I personally use
+			or enjoy.
+		</p>
+		<p>
+			If this is your last time here, I wish you good luck and prosperity
+			in all your future endeavors. &#x1F973;
+		</p>
+	</div>
+	<Banner title="About... uh, Me" />
+	<div class="content">
+		<p>
+			Well, my name is Jacob Simeone. I am a full time student at the
+			moment, and I work as an Associate Embedded Software Engineer based
+			out of the American mid-west, primarily working on data acquisition
+			devices in the realm of thermal and power measurement. My hobbies
+			don't stray far from these industries, mostly revolving around
+			robotics and measurement projects. As of late, I have been working
+			on a <a target="_blank" href="https://weather.jacobsimeone.net"
+				>weather station</a
+			> at school with some fellow students, as well as some personal projects
+			with similar environmental monitoring aspects for my garden at home.
+		</p>
+	</div>
+	<Banner title="Interesting Places" />
+	<div class="content">
+		{
+			interesting.map((i) => (
+				<BigLink
+					link={`/blog/${i.id}`}
+					title={i.data.title}
+					description={i.data.description}
+				/>
+			))
+		}
+	</div>
+	<Banner title="Skills" />
+	<Skill
+		title="C/C++ (Embedded Targets)"
+		progress="85"
+		comment="Proficient"
+	/>
+	<Skill title="C/C++ (Server Targets)" progress="80" comment="Proficient" />
+	<Skill
+		title="Linux Server Administration"
+		progress="65"
+		comment="Comfortable"
+	/>
+	<Skill title=".NET Development" progress="60" comment="Comfortable" />
+	<Skill title="Python" progress="50" comment="Intermediate" />
+	<Skill title="Android Development" progress="30" comment="Beginner" />
+	<Banner title="Ideas" />
 </Layout>

@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import BlogHeader from "../../components/BlogHeader.astro";
+
+export async function getStaticPaths() {
+    // Define the colection you are creating pages for
+    const allBlogs = await getCollection("blog");
+
+    return allBlogs.map((blog) => {
+        return {
+            params: {id: blog.id},
+            props:{blog},
+        };
+    });
+}
+
+const {blog} = Astro.props as {blog: CollectionEntry<"blog">};
+const {Content} = await render(blog)
+
+console.log(blog.data.coverImage)
+---
+<Layout>
+    <div class="image-container markdown-container">
+        <BlogHeader title={blog.data.title} author={blog.data.author} published={blog.data.pubDate} coverImage={blog.data.coverImage}/>
+        <Content />
+        <hr>
+        <p class="minor-text"> Last Updated: {blog.data.updatedDate}</p>
+    </div>
+</Layout>

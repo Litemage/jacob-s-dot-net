@@ -1,0 +1,19 @@
+---
+import "../styles/global.css"
+const {title, author, published, coverImage} = Astro.props;
+console.log(coverImage)
+---
+<div>
+    <div class="image-container">
+        <h1 style="margin-bottom: 0px; text-decoration: none;">{title}</h1>
+        <p style="margin: 0px; margin-bottom: 10px;" class="minor-text">By: {author}, Published: {published}</p>
+        <img src={coverImage} />
+        <hr>
+    </div>
+
+    <style>
+        div {
+            margin: auto;
+        }
+    </style>
+</div>

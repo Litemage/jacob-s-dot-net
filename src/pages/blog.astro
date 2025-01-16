@@ -1,0 +1,65 @@
+---
+import Banner from "../components/Banner.astro";
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import BlogLink from "../components/BlogLink.astro";
+import BigLink from "../components/BigLink.astro";
+
+const posts: any[] = await getCollection("blog");
+var blogs: any[] = []
+var articles: any[] = []
+
+posts.forEach((e) => {if (e.data.coverImage === "") {articles.push(e)} else {blogs.push(e)}})
+---
+
+<Layout>
+    <div class="content">
+        <Banner title="Articles" />
+        <p>Write-ups on topics I have personally found intriguing, or problems I have faced and found the answer too.</p>
+        <ul>
+            {
+                articles.map((article) => (
+                    <BlogLink
+                        link={`/blog/${article.id}`}
+                        title={article.data.title}
+                        description={article.data.description}
+                        author={article.data.author}
+                        published={article.data.pubDate}
+                        // Purposefully leave out cover image from articles
+                    />
+                ))
+            }
+        </ul>
+        <Banner title="Blog & Projects" />
+        <p>
+            Here, you will find blog posts about my projects, write-ups on
+            various technologies, and other articles on things I find are worth
+            writing about. Hopefully you are able to learn something from the
+            knowledge here
+        </p>
+        <ul>
+            {
+                blogs.map((post) => (
+                    // <li>
+                    //     <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                    //     <p>{post.data.description}</p>
+                    // </li>
+                    <BlogLink
+                        link={`/blog/${post.id}`}
+                        title={post.data.title}
+                        description={post.data.description}
+                        author={post.data.author}
+                        published={post.data.pubDate}
+                        coverImage={post.data.coverImage}
+                    />
+                ))
+            }
+
+            <style>
+                ul {
+                    padding: 0px;
+                }
+            </style>
+        </ul>
+    </div>
+</Layout>

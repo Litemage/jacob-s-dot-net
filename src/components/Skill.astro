@@ -1,0 +1,15 @@
+---
+import { undefined } from "astro:schema";
+import "../styles/global.css"
+
+const {title, progress, comment} = Astro.props;
+
+const showComment = comment != undefined;
+---
+
+<div class="skill-box">
+    <p>{title} - {comment}</p>
+    <div class="skill">
+        <div class="skill-level" style={`width: ${progress}%;`}></div>
+    </div>
+</div>

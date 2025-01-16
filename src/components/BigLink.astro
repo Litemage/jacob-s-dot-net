@@ -1,0 +1,23 @@
+---
+import "../styles/global.css"
+
+const {title, description, link} = Astro.props;
+---
+<div class="content article-container">
+    <a href={link}><h2>{title}</h2></a>
+    <span>{description}</span>
+
+    <style>
+        a {
+            letter-spacing: 3px;
+            font-size: 1.5em;
+        }
+        h2 {
+            margin-bottom: 0px;
+        }
+        span {
+            font-size: larger;
+            opacity: 60%;
+        }
+    </style>
+</div>
