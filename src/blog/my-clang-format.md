@@ -10,9 +10,9 @@ tags: ""
 
 # Why Format Code?
 
-If you have written any length of a scripting programming language, you can probably already appreciate how difficult it can be to maintain an absolutely consistent style, especially as projects grow to tens or hundreds of files. That kind of blows, right? Especially because a consistent style is *very* important for clarity and general neatness, which can aid in debugging your code, or newcomers understanding what is going on.
+If you have written any length of a scripting programming language, you can probably already appreciate how difficult it can be to maintain a consistent style, especially as projects grow to tens or hundreds of files. That kind of blows, right? Especially because a consistent style is *very* important for clarity and general neatness of the program, which can aid in debugging your code, or new developers easily understanding what is going on.
 
-Especially when you reach production code-bases, your code's functionality and technical completeness is pretty much equally important to the quality in which it is written. My favorite example of this? Take the donut-shaped-C-code-that-generates-a-spinning-donut program:
+Especially when you reach production code-bases, your code's functionality and technical completeness is equally important to the quality in which it is written. My favorite example of this? Take the donut-shaped-C-code-that-generates-a-spinning-donut program:
 
 ```c
              i,j,k,x,y,o,N;
@@ -38,15 +38,19 @@ t*d);o=x+80*y;N          =8*((g*a-G*h*e)
 // Original credit: https://www.a1k0n.net/2011/07/20/donut-math.html
 ```
 
-Now you tell me: what on earth is going in that code? The first thing you would do is re-write it so you could read it.
+Now you tell me: what on earth is going in that code? Well, you probably can't tell from this! Just in this donut, there are lots of optimizations that make it very well-written, but you probably could not tell that by looking at it in the donut form. If you have the time, re-format the code and look at it, and read up about it on [Andy Sloane's website](https://www.a1k0n.net/2011/07/20/donut-math.html).
 
-That being said: Is anyone ever going to write something like this in production? No, this is hyperbole to really drive the point home that formatting *does* matter.
+That being said: Is anyone ever going to write something like this in production? No, probably not, this is hyperbole to really drive the point home that formatting *does* matter to others viewing your program.
 
 > *If you ever find something like this in production, contact me, and we'll cry together.*
 
+So, what would be a solution to this problem? Well, you could just keep a consistent style and go through all of your source code and style it the way you would like. However, we are programmers after all, and these are the kind of things we tend to automate... enter formatting tools.
+
 # Clang-Format
 
-I'm sure there are a lot of C/C++ language formatters out there, but `clang-format` has been my go-to for a few years now, and I don't see it going anywhere. If you are un-aware, [Clang](https://clang.llvm.org/) is a "front-end" for the [LLVM](https://www.llvm.org/) project. Put simply: LLVM is a collection of tools designed for "languages in the C language family", and Clang is a compiler using the LLVM toolset. Well, part of that toolbox is a program called [clang-format](https://releases.llvm.org/10.0.0/tools/clang/docs/ClangFormat.html). The `clang-format` tool is designed to be used as a stand-alone or integrated tool for formatting your C/C++ source code automatically. (Note this is different from a [static analyzer](https://clang-analyzer.llvm.org/)). Personally, I use both the CLI tool and as an integration with VsCode.
+I'm sure there are a lot of C/C++ language formatters out there, but `clang-format` has been my go-to for a few years now, and I don't see it going anywhere. If you are un-aware, [Clang](https://clang.llvm.org/) is a "front-end" compiler build for the [LLVM](https://www.llvm.org/) project. Put simply: LLVM is a collection of reusable tools designed for "languages in the C language family" for use in compiling code, and clang uses this toolset.
+
+When you install the Clang compiler, you also get a couple extra tools as part of the project, one of those tools is [clang-format](https://releases.llvm.org/10.0.0/tools/clang/docs/ClangFormat.html). The `clang-format` tool is designed to be used as a stand-alone or integrated tool for formatting your C/C++ source code automatically, and maintaining a consistent style. (Note this is different from a [static analyzer](https://clang-analyzer.llvm.org/), which warns users about bugs before compile-time). Personally, I use both the `clang-format` CLI tool and, and a [VsCode extension](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format) that integrates `clang-format` into the IDE.
 
 Calling the `clang-format` executable causes it to crawl through your code and perform all of the formatting for you! So if some inferior human goes and writes a function like this:
 

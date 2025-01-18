@@ -48,6 +48,8 @@ code {
 .image-container img {
     max-width: 100%;
     max-height: 100%;
+    width: auto;
+    height: auto;
     display: block;
 }
 
@@ -263,6 +265,7 @@ code {
 
 .markdown-container pre code {
     font-size: 1.3rem;
+    font-family: monospace;
 }
 
 .markdown-container a {
@@ -270,21 +273,21 @@ code {
 }
 
 .markdown-container h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     text-decoration: underline;
     letter-spacing: 1px;
 }
 
 .markdown-container p {
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     word-spacing: 2px;
     line-height: 150%;
 }
 
 .markdown-container li {
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     word-spacing: 2px;
 }
 
@@ -307,7 +310,17 @@ code {
     padding-left: 5px;
     padding-right: 5px;
     font-family: monospace;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
+    color: rgb(197, 128, 0);
+}
+
+.markdown-container li code {
+    border-radius: 5px;
+    background-color: #15192a;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-family: monospace;
+    font-size: 1.3rem;
     color: rgb(197, 128, 0);
 }
 

@@ -3,14 +3,14 @@ title: "BU Weather Station"
 description: "The BU Weather station is a university project I am actively working on. The station collects and reports collected environment data publicly."
 author: "Jacob Simeone"
 pubDate: "2024-06-23"
-updatedDate: "2024-06-23"
+updatedDate: "2025-01-19"
 coverImage: "/posts/bu-weather-station/Weather-Station-Open.png"
 tags: "interesting"
 ---
 
 # An Introduction
 
-The BU Weather Station is a set of hardware and software that serves the purpose of collecting and reporting environmental data, designed by myself and others at [Bradley University](https://bradley.edu/), in hopes of eventually deploying the technology publicly. Pictured in the hero is the actual hardware, made up of a microcontroller, 915 MHz radio, and environmental sensors. Beyond the hardware/firmware, the weather station project also includes two other software components. Firstly, being the **broker**, responsible for collecting radio data and posting it to an internal database. Secondly, the **api server** is responsible for hosting an api that user services can retrieve environmental data from, including websites.
+The BU Weather Station is a set of hardware and software that serves the purpose of collecting and reporting environmental data, designed by myself and others at [Bradley University](https://bradley.edu/). The weather station is for now, publicly hosted at <a target="_blank" href="https://weather.jacobsimeone.net">weather.jacobsimeone.net</a>. Pictured above is the actual hardware, made up of a microcontroller, 915 MHz radio, and environmental sensors. Beyond the hardware/firmware, the weather station project also includes two other software components. Firstly, the **API**, which is responsible for hosting an API that user services can retrieve environmental data from, including websites. Secondly, being the **broker**, responsible for collecting radio data from the weather station hardware and posting it to the API where it can be requested by users. 
  
 ![Weather Station System Block Diagram](/posts/bu-weather-station/bu-weather-sysblock.png)
 
@@ -74,7 +74,7 @@ The brain of the BU Weather Station is an ESP32 microcontroller. This microcontr
 
 # Broker
 
-The broker is a piece of software, written in C++ that's designed to be run on a server that has a matching [RYLR896](https://reyax.com/products/rylr896/) radio, the same as the one running on the BU Weather Station. This software is responsible for receiving the data sent to it by the BU Weather Station, through the radio interface. The Broker then writes this data to a [Redis](https://redis.io/) database, for use by other Weather Station services, like an API, or website. 
+The broker is a piece of software, written in C++ that's designed to be run on a server that has a matching [RYLR896](https://reyax.com/products/rylr896/) radio attached over a serial interface, the same as the one running on the BU Weather Station. This software is responsible for receiving the data sent to it by the BU Weather Station, through the radio interface. The Broker then writes this data to an upstream server which hosts the API and a database which holds all of the weather-station data which other services can then query. 
 
 ![Broker](/posts/bu-weather-station/broker.png)
 
@@ -82,7 +82,32 @@ The broker is a piece of software, written in C++ that's designed to be run on a
 
 The API is a very simple service written using [Node.js](https://nodejs.org/en) that retrieves data from the redis database, and exposes it through an HTTP API. A user can send a HTTP GET to `/api/envdata` on the server running the api, and it will return the current environmental data using JSON. 
 
-In the future, the API will support retrieving data from specific BU Weather Stations, or more specific data fetching. 
+In the future, the API will support retrieving data from specific BU Weather Stations, or more specific data fetching like specific timestamps, or filters users can apply to data. 
+
+And returns data in the following format:
+```json
+{
+    "weatherData": [
+        {
+            "timestamp": "1732851424351-0",
+            "temp_c": "-0.85",
+            "humid_prcnt": "54.76",
+            "pressure_kpa": "100.05",
+            "is_raining": "0",
+            "light_level": "DARK"
+        },
+    ]
+}
+```
+
+Where:
+
+- `timestamp` is milliseconds since epoch, with the sample number for that timestamp appended with a '-' character. Like: "[unix-timestamp]-[sample number]"
+- `temp_c` is the temperature, in degrees celsius
+- `humid_prcnt` is the relative humidity, as a percent in the range [0-100]
+- `pressure_kpa` in the current pressure, in kpa
+- `is_raining` is either 0 or 1 to indicate raining.
+- `light_level` is either "SUNNY" or "DARK"
 
 # Website
 
