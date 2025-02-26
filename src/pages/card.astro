@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Banner from "../components/Banner.astro";
+import EMail from "../components/EMail.astro";
+---
+
+<Layout>
+    <div class="content">
+        <Banner title="Contact" />
+        <p>
+            Hello! You have reached my (Jacob Simeone) contact page. I will
+            usually respond within 24-48 hours depending on my schedule. Cheers!
+        </p>
+        <Banner title="E-Mail" />
+        <EMail
+            title="Jacob Simeone - School"
+            email="jsimeone@mail.bradley.edu"
+        />
+        <Banner title="QR Code" />
+        <img
+            style="margin-bottom: 3rem;"
+            class="img-center"
+            src="/jacob-s-contact.png"
+            alt=""
+        />
+    </div>
+</Layout>
