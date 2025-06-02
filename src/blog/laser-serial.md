@@ -8,11 +8,6 @@ coverImage: ""
 tags: "interesting"
 ---
 
-- Inspiration (Fibre optics, laser diodes)
-- Background (UART, laser diodes, photo cells)
-- Process
-- Results
-
 # Inspiration
 
 For the most part, [fiber optics](https://en.wikipedia.org/wiki/Optical_fiber) are the backbone of a vast majority of high-speed internet connections, taking a digital light signal and bouncing it in a glass tube over and over again until it reaches it's destination. When pondering this technology, it dawned upon me that using light to transmit digital data isn't only optimal for high-speed applications, but I theorized could be used to be a good demonstration of how serial data is transferred. 
